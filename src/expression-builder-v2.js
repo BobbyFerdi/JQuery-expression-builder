@@ -329,7 +329,7 @@ jQuery.fn.extend({
             options.expression = '';
         if (options.preventWrongInput === undefined)
             options.preventWrongInput = false;
-        var expressionInput = this, lastText = '', inVariable = false, inString = false, suggestions, notificaiton, isPaste = false, parserOptions = {
+        var expressionInput = this, lastText = '', inVariable = false, inString = false, suggestions, notification, isPaste = false, parserOptions = {
             funcs: {},
             variables: [],
             variableSpecialCharacters: []
@@ -343,7 +343,7 @@ jQuery.fn.extend({
             if (!expressionInput.attr('exp-id')) {
                 var id = new Date().getTime();
                 suggestions = $("<div class='exp-suggestions " + options.suggestions + "' exp-id='" + id + "'></div>");
-                notificaiton = $("<div class='exp-notification' data-toogle='tooltip' data-placement='top' exp-id='" + id +
+                notification = $("<div class='exp-notification' data-toogle='tooltip' data-placement='top' exp-id='" + id +
                     "'><span class='glyphicon glyphicon-ok ok'></span><span class='glyphicon glyphicon-remove error'></span></div>");
                 expressionInput.attr('exp-id', id);
                 options.variables = options.variables || [];
@@ -357,7 +357,7 @@ jQuery.fn.extend({
                 parent_1
                     .append(expressionInput)
                     .append(suggestions)
-                    .append(notificaiton);
+                    .append(notification);
                 expressionInput.on('input', onInput);
                 expressionInput.keydown(onKeydown);
                 expressionInput.on('paste', onPaste);
@@ -372,7 +372,7 @@ jQuery.fn.extend({
             else {
                 var id = expressionInput.attr('exp-id');
                 suggestions = $('.exp-container .exp-suggestions[exp-id=' + id + "]");
-                notificaiton = $('.exp-container .exp-notification[exp-id=' + id + "]");
+                notification = $('.exp-container .exp-notification[exp-id=' + id + "]");
                 if (!options.variables)
                     options.variables = expressionInput.data('variables');
                 if (!options.functions)
@@ -682,15 +682,15 @@ jQuery.fn.extend({
             var text = expressionInput.val().toString();
             var v = parser(text, parserOptions).validate();
             if (v == '') {
-                notificaiton.parent().removeClass('invalid').addClass('valid');
-                notificaiton.removeAttr('title');
-                notificaiton.tooltip('destroy');
+                notification.parent().removeClass('invalid').addClass('valid');
+                notification.removeAttr('title');
+                notification.tooltip('destroy');
                 return true;
             }
             //console.warn("exp.js validation: " + v);
-            notificaiton.parent().addClass('invalid').removeClass('valid');
-            notificaiton.attr('title', v);
-            notificaiton.tooltip('fixTitle');
+            notification.parent().addClass('invalid').removeClass('valid');
+            notification.attr('title', v);
+            notification.tooltip('fixTitle');
             return false;
         }
         function setCursorPosition(position) {

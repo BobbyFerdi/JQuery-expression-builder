@@ -25,7 +25,7 @@ function expressionBuilder(selector: string | JQuery, options?: any) {
         inVariable = false,
         inString = false,
         suggestions,
-        notificaiton,
+        notification,
         isPaste = false,
         variables;
 
@@ -40,7 +40,7 @@ function expressionBuilder(selector: string | JQuery, options?: any) {
 
             let id = new Date().getTime();
             suggestions = $("<div class='exp-suggestions " + options.suggestions + "' exp-id='" + id + "'></div>");
-            notificaiton = $("<div class='exp-notification' data-toogle='tooltip' data-placement='right' exp-id='" + id +
+            notification = $("<div class='exp-notification' data-toogle='tooltip' data-placement='right' exp-id='" + id +
                 "'><span class='glyphicon glyphicon-ok ok'></span><span class='glyphicon glyphicon-remove error'></span></div>");
 
             expressionInput.attr('exp-id', id);
@@ -55,7 +55,7 @@ function expressionBuilder(selector: string | JQuery, options?: any) {
             parent
                 .append(expressionInput)
                 .append(suggestions)
-                .append(notificaiton);
+                .append(notification);
 
             expressionInput.on('input', onInput);
             expressionInput.keydown(onKeydown);
@@ -77,7 +77,7 @@ function expressionBuilder(selector: string | JQuery, options?: any) {
         else {
             let id = expressionInput.attr('exp-id');
             suggestions = $('.exp-container .exp-suggestions[exp-id=' + id + "]");
-            notificaiton = $('.exp-container .exp-notification[exp-id=' + id + "]");
+            notification = $('.exp-container .exp-notification[exp-id=' + id + "]");
             if (!variables)
                 variables = expressionInput.data('variables');
         }
@@ -537,12 +537,12 @@ function expressionBuilder(selector: string | JQuery, options?: any) {
 
             eval(result.formula);
 
-            notificaiton.parent().removeClass('invalid').addClass('valid');
-            notificaiton.removeAttr('title');
+            notification.parent().removeClass('invalid').addClass('valid');
+            notification.removeAttr('title');
         } catch (ex) {
             console.warn("exp.js validation: " + ex.message);
-            notificaiton.parent().addClass('invalid').removeClass('valid');
-            notificaiton.attr('title', ex.message);
+            notification.parent().addClass('invalid').removeClass('valid');
+            notification.attr('title', ex.message);
             return false;
         }
 

@@ -437,7 +437,7 @@ jQuery.fn.extend({
         let id = new Date().getTime();
         suggestions = $("<div class='exp-suggestions " + options.suggestions + "' exp-id='" + id + "'></div>");
         notificaiton = $("<div class='exp-notification' data-toogle='tooltip' data-placement='top' exp-id='" + id +
-          "'><span class='glyphicon glyphicon-ok ok'></span><span class='glyphicon glyphicon-remove error'></span></div>");
+          "'><span class='ok'></span><span class='error'></span></div>");
 
         expressionInput.attr('exp-id', id);
 
